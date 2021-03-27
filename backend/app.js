@@ -8,9 +8,11 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const { requestLogger, logger } = require('./middleware/logger');
 const { responseTime, errors } = require('./middleware');
-const { v4 } = require('./routes');
+const { v1 } = require('./routes');
 
 dotenv.config();
+
+// console.log(process.env.SPACEX_MONGO)
 
 const app = new Koa();
 
@@ -66,7 +68,7 @@ app.use(responseTime);
 // Request logging
 app.use(requestLogger);
 
-// V4 routes
-app.use(v4.routes());
+// V1 routes
+app.use(v1.routes());
 
 module.exports = app;

@@ -1,2 +1,5 @@
 /airflow/logs/*
 /airflow/dags/__pycache__
+/.backup/*
+.DS_Store
+/.vscode

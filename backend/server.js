@@ -7,7 +7,8 @@ const PORT = process.env.PORT || 6673;
 const SERVER = http.createServer(app.callback());
 
 // Gracefully close Mongo connection
-const gracefulShutdown = () => {
+const gracefulShutdown = (e) => {
+  logger.info(e);
   mongoose.connection.close(false, () => {
     logger.info('Mongo closed');
     SERVER.close(() => {
