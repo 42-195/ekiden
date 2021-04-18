@@ -7,8 +7,7 @@
  *  行业、概念、地域指数及成分
  *--------------------------------------------------------------------------------------------*/
 const public = require("../url");
-const = require("../util");
-const digger = require("../digger");
+const digger = require("../util");
 const format = require('string-format');
 const moment = require("moment");
 

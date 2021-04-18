@@ -2,9 +2,9 @@ const Router = require('koa-router');
 const string2number = require('../../../lib/string2number');
 const getStockType = require('../../../lib/getStockType');
 const dip = require('../../../spiders');
-const Balance = require('./model');
+const Profit = require('./model');
 
-const router = new Router({ prefix: '/balance' });
+const router = new Router({ prefix: '/profit' });
 
 // Healthcheck
 router.get('/', async (ctx) => {
@@ -13,7 +13,7 @@ router.get('/', async (ctx) => {
 
 router.get('/get', async (ctx) => {
   const { year = new Date().getFullYear(), code } = ctx.query;
-  const result = await Balance.find({
+  const result = await Profit.find({
     code, date: { $gte: `${year}-1-1`, $lte: `${year}-12-31` },
   });
   if (result) {
@@ -21,26 +21,16 @@ router.get('/get', async (ctx) => {
   } else {
   // 根据股票编码获取板块
     const boards = await dip.stock.symbols.getBoards(code);
-    const boadCodes = boards.map((board) => board.code);
-    const type = getStockType(boadCodes);
-
-    const response = await dip.stock.finance.getBalanceSheet(code, year, type);
+    const boardCodes = boards.map((board) => board.code);
+    const type = getStockType(boardCodes);
+    const response = await dip.stock.finance.getProfitStatment(code, year, type);
     // 原始数据经过一次处理，“--” to null，string to number
-    const rawdata = string2number(response);
-    const data = [];
-    // eslint-disable-next-line no-plusplus
-    for (let index = 0; index < rawdata.asset.length; index++) {
-      data[index] = {
-        code,
-        ...rawdata.asset[index],
-        ...rawdata.debts[index],
-        ...rawdata.equity[index],
-      };
-    }
+    const rawdata = string2number(response).profit_statemet
+      .map((item) => ({ code, ...item }));
     // 存储至数据库
-    Balance.insertMany(data);
+    Profit.insertMany(rawdata);
     // 需要区分股票类型
-    ctx.body = data;
+    ctx.body = rawdata;
   }
 });
 

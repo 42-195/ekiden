@@ -7,8 +7,7 @@
  *  股票列表、分类、发行等基础信息
  *--------------------------------------------------------------------------------------------*/
 const public = require("../url");
-const = require("../util");
-const digger = require("../digger");
+const digger = require("../util");
 const format = require("string-format");
 
 let addPrefix = (code) => {

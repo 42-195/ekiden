@@ -6,8 +6,7 @@
  *  Licensed under the GPL-3.0 License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 const public = require("../url");
-const = require("../util");
-const digger = require("../digger");
+const digger = require("../util");
 const format = require('string-format');
 const moment = require("moment");
 

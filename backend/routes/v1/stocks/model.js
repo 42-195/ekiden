@@ -6,7 +6,10 @@ const stockSchema = new mongoose.Schema({
   symbol: String, // 带市场标识的股票代码
   name: String, // 股票名称
   code: String, // 不带市场标识的股票代码
-  board: [String], // 个股所属板块
+  board: [{
+    code: String,
+    name: String,
+  }], // 个股所属板块
   market: String, // 上市地
   consignee: String, // 主承销商
   underwriting: String, // 承销方式
@@ -24,7 +27,7 @@ const stockSchema = new mongoose.Schema({
   underwriting_fee: Number, // 承销费用（万元）
   announcement_date: Date, // 招股公告日
   launch_date: Date, // 上市日期
-}, { autoCreate: true });
+}, { autoCreate: true, strict: 'throw' });
 
 stockSchema.plugin(mongoosePaginate);
 stockSchema.plugin(idPlugin);

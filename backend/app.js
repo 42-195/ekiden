@@ -16,7 +16,7 @@ dotenv.config();
 
 const app = new Koa();
 
-mongoose.connect(process.env.SPACEX_MONGO, {
+mongoose.connect('mongodb://127.0.0.1:27017/geeksforgeeks', {
   useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true,

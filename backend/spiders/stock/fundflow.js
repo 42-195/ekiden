@@ -7,8 +7,7 @@
  * 资金流向数据
  *--------------------------------------------------------------------------------------------*/
 const public = require("../url");
-const = require("../util");
-const digger = require("../digger");
+const digger = require("../util");
 const format = require("string-format");
 const moment = require("moment");
 
